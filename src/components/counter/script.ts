@@ -24,7 +24,7 @@ export default function ({
   initialValue,
 }: {
   initialValue: number;
-}): CounterDataOutput {
+}): AlpineComponent<CounterDataOutput> {
   return {
     counter: initialValue,
     decrement() {
