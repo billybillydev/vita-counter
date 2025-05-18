@@ -25,12 +25,13 @@ export default function ({
       this.count = value;
     },
     input: {
-      ':value': function() {
-        return this.count;
-      },
-      '@input': function(event: { target: { value: string } }) {
-        this.change(Number(event.target.value));
-      },
+      // ':value': function() {
+      //   return this.count;
+      // },
+      // '@input': function(event: { target: { value: string } }) {
+      //   this.change(Number(event.target.value));
+      // },
+      "x-model": "count",
       '@click.window': function() {
         console.log('clicked');
       },
