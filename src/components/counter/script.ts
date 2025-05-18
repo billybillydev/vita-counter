@@ -1,23 +1,11 @@
 import { AlpineComponent } from 'alpinejs';
 
 type CounterDataOutput = {
-  counter: number;
+  count: number;
   decrement: () => void;
   increment: () => void;
-  change: (
-    this: AlpineComponent<CounterDataOutput> & {
-      $event: { target: { value: string } };
-    },
-    value: number
-  ) => void;
-  input: Record<
-    string,
-    (
-      this: AlpineComponent<CounterDataOutput> & {
-        $event: { target: { value: string } };
-      }
-    ) => void
-  >;
+  change: (value: number) => void;
+  input: Partial<Alpine.EncapsulateAttributes>;
 };
 
 export default function ({
@@ -26,23 +14,48 @@ export default function ({
   initialValue: number;
 }): AlpineComponent<CounterDataOutput> {
   return {
-    counter: initialValue,
+    count: initialValue,
     decrement() {
-      this.counter--;
+      this.count--;
     },
     increment() {
-      this.counter++;
+      this.count++;
     },
-    change() {
-      this.counter = Number(this.$event.target.value);
+    change(value: number) {
+      this.count = value;
     },
     input: {
-      [':value']() {
-        return this.counter;
+      ':value': function() {
+        return this.count;
       },
-      ['@input']() {
-        this.change(Number(this.$event.target.value));
+      '@input': function(event: { target: { value: string } }) {
+        this.change(Number(event.target.value));
       },
+      '@click.window': function() {
+        console.log('clicked');
+      },
+      '@keydown.meta.window': function() {
+        console.log('meta pressed')
+      },
+      '@keydown.shift.space': function() {
+        console.log('shift + space pressed')
+      },
+      '@keydown.ctrl.enter': function() {
+        console.log('ctrl + enter pressed')
+      },
+      'x-on:keyup.window': function(event: KeyboardEvent) {
+        console.log({ eventKey: event.key });
+      },
+      '@keydown.shift.slash.window': function() {
+        console.log('shift + slash pressed')
+      },
+      'x-show': function() {
+        return this.count <= 10;
+      },
+      ':name': "count",
+      'x-transition.duration.1000ms': function() {
+        return true;
+      }
     },
   };
 }

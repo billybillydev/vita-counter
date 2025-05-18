@@ -9,6 +9,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "@kitajs/html",
     "plugins": [{ "name": "@kitajs/ts-html-plugin" }],
+    "types": ["@kitajs/html/htmx.d.ts", "@kitajs/html/alpine.d.ts"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -22,7 +23,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
 
     "baseUrl": "src",
     "paths": {
